@@ -69,7 +69,7 @@ fn parse_body(s: &str) -> Result<Body> {
 
 async fn get(client: Client, args: &Get) -> Result<()> {
     let resp = client.get(&args.url).send().await?;
-    Ok(print_resp(resp).await?)
+    print_resp(resp).await
 }
 
 async fn post(client: Client, args: &Post) -> Result<()> {
@@ -78,7 +78,7 @@ async fn post(client: Client, args: &Post) -> Result<()> {
         body.insert(&b.key, &b.value);
     }
     let resp = client.post(&args.url).json(&body).send().await?;
-    Ok(print_resp(resp).await?)
+    print_resp(resp).await
 }
 
 async fn print_resp(resp: Response) -> Result<()> {
@@ -139,10 +139,10 @@ async fn main() -> Result<()> {
     let client = Client::builder()
         .default_headers(headers)
         .build()?;
-    let result = match cli.command {
+    match cli.command {
         SubCommand::Get(ref args) => get(client, args).await?,
         SubCommand::Post(ref args) => post(client, args).await?
     };
 
-    Ok(result)
+    Ok(())
 }
