@@ -1,4 +1,6 @@
 [workspace]
 members = [
-    "httpie"
+    "httpie",
+    "queryer"
 ]
+resolver = "2"
